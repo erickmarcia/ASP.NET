@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebApp.Models.Factura>
+
+
+@{
+    ViewBag.Title = "Listado de Facturas";
+}
+<h2>Listado de Facturas</h2>
+
+<p>
+    @Html.ActionLink("Agregar Factura", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Código</th>
+        <th>Fecha</th>
+        <th>Total</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idFactura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigoFactura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.idFactura }) |
+                @Html.ActionLink("Edit", "Details", new { id = item.idFactura }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.idFactura })
+            </td>
+        </tr>
+    }
+
+</table>

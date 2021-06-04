@@ -1,0 +1,58 @@
+﻿@model WebApp.Models.Factura
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar Artículo*</h2>
+
+<h3>¿Quieres Eliminar este Artículo?</h3>
+
+<div>
+    <h4>Factura</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idFactura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idFactura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.codigoFactura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigoFactura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

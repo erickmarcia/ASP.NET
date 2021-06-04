@@ -1,0 +1,100 @@
+﻿@model WebApp.Models.Articulo
+@*@model MVCCUDApi.Models.Articulo*@
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar Artículo*</h2>
+
+<h3>¿Quieres Eliminar este Artículo?</h3>
+<div>
+    @*<h4>Articulo</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.codigo)*@
+            <b>
+                Código:
+            </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.nombre)*@
+            <b>
+                Nombre:
+            </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.precio)*@
+            <b>
+                Precio:
+            </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.iva)*@
+            <b>
+                IVA (13%):
+            </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iva)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.aplicaIva)*@
+            <b>
+                Aplica IVA:
+            </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aplicaIva)
+        </dd>
+        @*<dt>
+            <b>
+                Precio Total:
+            </b>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>*@
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.activo)*@
+            <b>
+                Activo:
+            </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

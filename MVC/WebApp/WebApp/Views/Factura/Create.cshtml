@@ -1,0 +1,291 @@
+﻿@model WebApp.Models.Detalle
+
+@{
+    ViewBag.Title = "Crear Factura";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<hr />
+<div style="color: #00ff21">
+    @ViewBag.Message
+</div>
+@using (Html.BeginForm("Create", "factura", FormMethod.Post))
+{
+    <div class="row">
+        @*<form>*@
+        <div class="form-group">
+            <div class="row mb-3">
+                <label for="inputDate" class="col-sm-2 col-form-label">Fecha:</label>
+                <fieldset disabled>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="fecha">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        @*</form>
+            <form>*@
+        <div class="form-group">
+            <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label"># Factura:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Factura">
+                </div>
+            </div>
+        </div>
+        @*</form>
+            <form>*@
+        <div class="form-group">
+            <div class="row mb-3">
+                <label for="inputName" class="col-sm-2 col-form-label">Cliente:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputCliente">
+                </div>
+            </div>
+        </div>
+        @*</form>*@
+    </div>
+    <hr />
+    <div class="row">
+        <div class="form-group">
+            <table id="tablaparametros" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Artículo:
+                            @*<input type="text" class="form-control" placeholder="First name" aria-label="First name">*@
+                            @Html.DropDownList("Productos", null, htmlAttributes: new { id = "CmbCodArticulo", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.idArticulo, "", new { @class = "text-danger" })
+                        </th>
+                        <th>
+                            Cantidad: @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { id = "Cantidad", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.cantidad, "", new { @class = "text-danger" })
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <fieldset disabled>
+                                Código Artículo:
+                                @Html.EditorFor(model => model.codArticulo, new { htmlAttributes = new { id = "CodArticulo", @class = "form-control", placeholder = "Código Artículo" } })
+                                @Html.ValidationMessageFor(model => model.codArticulo, "", new { @class = "text-danger" })
+                            </fieldset>
+                        </th>
+                        <th>
+                            <fieldset disabled>
+                                Nombre:
+                                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { id = "Nombre", @class = "form-control", placeholder = "Nombre Artículo" } })
+                                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+                            </fieldset>
+                        </th>
+                    </tr>
+                    <tr>
+                        @*<th>
+                                Cantidad: @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { id = "Cantidad", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.cantidad, "", new { @class = "text-danger" })
+                            </th>*@
+                        <th>
+                            <fieldset disabled>
+                                Precio: @Html.EditorFor(model => model.precio, new { htmlAttributes = new { id = "Precio", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
+                            </fieldset>
+                        </th>
+                        <th>
+                            <fieldset disabled>
+                                IVA: @Html.EditorFor(model => model.IVA, new { htmlAttributes = new { id = "iva", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.IVA, "", new { @class = "text-danger" })
+                            </fieldset>
+                        </th>
+                        <th>
+                            @*<input value="Agregar" type="button" onclick="AgregaConcepto(); return false;" />*@
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="button" value="Agregar" class="btn btn-default" onclick="AgregaConcepto(); return false;" />
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <hr />
+        <div id="divConceptos">
+            <table id="tablaConceptos" style="width:100%;">
+                <tr>
+                    <th># FACTURA</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>IVA</th>
+                    <th>Total</th>
+                </tr>
+
+            </table>
+        </div>
+        <hr />
+        <div class="form-group">
+            <input type="submit" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+
+
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+<script>
+    var cboArticulosClass = document.getElementById("CmbCodArticulo");
+    cboArticulosClass.addEventListener("change", Refresh);
+    Refresh();
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+
+    function Refresh() {
+        fetch("https://localhost:44326/api/articulo/" + cboArticulosClass.value, requestOptions)
+            .then(response => response.json())
+            .then(function (data) {
+
+                let xidArticulo = data.idArticulo;
+                let xCodigoArticulo = data.codigo;
+                let xprecio = data.precio;
+                let xIVA = data.iva;
+                let xNombre = data.nombre;
+                console.log(data);
+                //console.log("El precio es > " + xprecio);
+                //console.log("El IVA es > " + xIVA);
+                //console.log("El Nombre es > " + xNombre);
+
+                var valorCodigo = document.getElementById("CodArticulo").value = xCodigoArticulo;
+                var valorNombre = document.getElementById("Nombre").value = xNombre;
+                var valorPrecio = document.getElementById("Precio").value = xprecio;
+                var valorIVA = document.getElementById("iva").value = xIVA;
+
+            })
+    }
+
+    window.onload = function () {
+        var fecha = new Date();
+        var mes = fecha.getMonth() + 1; 
+        var dia = fecha.getDate(); 
+        var ano = fecha.getFullYear();
+        if (dia < 10)
+            dia = '0' + dia; 
+        if (mes < 10)
+            mes = '0' + mes 
+        document.getElementById('fecha').value = ano + "-" + mes + "-" + dia;
+    }
+
+
+</script>
+
+<script>
+    var num = 0;
+    function AgregaConcepto() {
+
+        let codigoFactura = document.getElementById("Factura").value;
+        let codigoArticulo = document.getElementById("CodArticulo").value;
+        let Nombre = document.getElementById("Nombre").value;
+        let Cantidad = document.getElementById("Cantidad").value;
+        let Precio = document.getElementById("Precio").value;
+        let IVA = document.getElementById("iva").value;
+        //let Total = document.getElementById("total").value;
+
+        //agregamos tabla
+        let Tabla = document.getElementById("tablaConceptos");
+        let TR = document.createElement("tr");
+        let TDcodigoFactura = document.createElement("td");
+        let TDcodigoArticulo = document.createElement("td");
+        let TDNombre = document.createElement("td");
+        let TDCantidad = document.createElement("td");
+        let TDPrecio = document.createElement("td");
+        let TDIVA = document.createElement("td");
+        let TDTotal = document.createElement("td");
+
+        TR.appendChild(TDcodigoFactura);
+        TR.appendChild(TDcodigoArticulo);
+        TR.appendChild(TDNombre);
+        TR.appendChild(TDCantidad);
+        TR.appendChild(TDPrecio);
+        TR.appendChild(TDIVA);
+        TR.appendChild(TDTotal);
+
+        TDcodigoFactura.innerHTML = codigoFactura;
+        TDcodigoArticulo.innerHTML = codigoArticulo;
+        TDNombre.innerHTML = Nombre;
+        TDCantidad.innerHTML = Cantidad;
+        TDPrecio.innerHTML = Precio;
+        TDIVA.innerHTML = IVA;
+        TDTotal.innerHTML = parseFloat(Cantidad) * (parseFloat(Precio) + parseFloat(IVA));
+        Tabla.appendChild(TR);
+
+        //agregamos hiddens
+        let DivConceptos = document.getElementById("divConceptos");
+        let HiddenIndex = document.createElement("input");
+        let HiddenCodigoFactura = document.createElement("input");
+        let HiddenCodigoArticulo = document.createElement("input");
+        let HiddenNombre = document.createElement("input");
+        let HiddenCantidad = document.createElement("input");
+        let HiddenPrecio = document.createElement("input");
+        let HiddenIVA = document.createElement("input");
+        let HiddenTotal = document.createElement("input");
+
+        HiddenIndex.name = "conceptos.Index";
+        HiddenIndex.value = num;
+        HiddenIndex.type = "hidden";
+        HiddenCodigoFactura.name = "conceptos[" + num + "].codigoFactura";
+        HiddenCodigoFactura.value = codigoFactura;
+        HiddenCodigoFactura.type = "hidden";
+        HiddenCodigoArticulo.name = "conceptos[" + num + "].codArticulo";
+        HiddenCodigoArticulo.value = codigoArticulo;
+        HiddenCodigoArticulo.type = "hidden";
+        HiddenNombre.name = "conceptos[" + num + "].nombre";
+        HiddenNombre.value = Nombre;
+        HiddenNombre.type = "hidden";
+        HiddenCantidad.name = "conceptos[" + num + "].cantidad";
+        HiddenCantidad.value = Cantidad;
+        HiddenCantidad.type = "hidden";
+        HiddenPrecio.name = "conceptos[" + num + "].precio";
+        HiddenPrecio.value = Precio;
+        HiddenPrecio.type = "hidden";
+        HiddenIVA.name = "conceptos[" + num + "].IVA";
+        HiddenIVA.value = IVA;
+        HiddenIVA.type = "hidden";
+        //HiddenIVA.name = "conceptos[" + num + "].total";
+        //HiddenIVA.value = Total;
+        //HiddenIVA.type = "hidden";
+
+        DivConceptos.appendChild(HiddenIndex);
+        DivConceptos.appendChild(HiddenCodigoFactura);
+        DivConceptos.appendChild(HiddenCodigoArticulo);
+        DivConceptos.appendChild(HiddenNombre);
+        DivConceptos.appendChild(HiddenCantidad);
+        DivConceptos.appendChild(HiddenPrecio);
+        DivConceptos.appendChild(HiddenIVA);
+        //DivConceptos.appendChild(HiddenTotal);
+
+        ////document.getElementById("codigoArticulo").value = "";
+        //document.getElementById("Nombre").value = "";
+        //document.getElementById("Cantidad").value = "";
+        //document.getElementById("Precio").value = "";
+        //document.getElementById("IVA").value = "";
+        ////document.getElementById("Total").value = "";
+
+        num++;
+    }
+</script>
+
+

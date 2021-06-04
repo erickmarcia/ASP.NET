@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MVCCUDApi.Models.Articulo>
+@*@model WebApp.Models.Articulo*@
+
+
+
+@{
+    ViewBag.Title = "Listado de Artículos";
+}
+
+<h2>Listado de Artículos</h2>
+
+<p>
+    @Html.ActionLink("Nuevo Artículo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>IVA</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idArticulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.iva)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.activo)
+                </td>*@
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.idArticulo }) |
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.idArticulo })
+            </td>
+        </tr>
+    }
+
+</table>
