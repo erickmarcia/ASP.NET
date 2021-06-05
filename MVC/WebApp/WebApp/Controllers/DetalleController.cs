@@ -13,7 +13,8 @@ namespace WebApp.Controllers
 {
     public class DeatalleController : Controller
     {
-        string BaseUrl = "https://localhost:44326/";
+        //string BaseUrl = "https://localhost:44326/";
+        string BaseUrl = "http://localhost/apidemo/";
 
         // GET: Articulo
         public async Task<ActionResult> Index()

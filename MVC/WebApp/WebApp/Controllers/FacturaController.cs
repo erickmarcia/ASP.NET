@@ -12,7 +12,8 @@ namespace WebApp.Controllers
 {
     public class FacturaController : Controller
     {
-        string BaseUrl = "https://localhost:44326/";
+        //string BaseUrl = "https://localhost:44326/";
+        string BaseUrl = "http://localhost/apidemo/";
 
         private static readonly ICollection<Factura> facturas = new HashSet<Factura>();
 
@@ -70,9 +71,8 @@ namespace WebApp.Controllers
 
             }
 
-            //////Assigning generic list to ViewBag
+          
             ViewBag.Productos = ObjList;
-            //PopulateArticuloDropDownList();
             return View();
         }
 
@@ -125,15 +125,13 @@ namespace WebApp.Controllers
             {
                 if (factura.conceptos != null && factura.conceptos.Count > 0)
                 {
-                    // este id posiblemente lo asigne tu base de datos.
                     factura.idFactura = facturas.Count > 0 ? facturas.Max(x => x.idFactura) + 1 : 1;
                     factura.fecha = DateTime.Now;
                     factura.activo = true;
 
                     foreach (var x in factura.conceptos)
                     {
-                        factura.codigoFactura = x.codigoFactura;// facturas.Count > 0 ? facturas.Max(x => x.codigoFactura) + 1 : "0001";
-                        //detalle.nombre = articulosx.FirstOrDefault(e => e.codigo == x.codArticulo).nombre;
+                        factura.codigoFactura = x.codigoFactura;
                     }
 
 
@@ -153,7 +151,6 @@ namespace WebApp.Controllers
 
         private static void EliminarDetallePorIndice(Factura factura, string operacion)
         {
-            // se asume que en el parametro 'operacion' viene el index del detalle a eliminar.
             string indexStr = operacion.Replace("eliminar-detalle-", "");
             int index = 0;
 
@@ -181,10 +178,7 @@ namespace WebApp.Controllers
 
         private bool CrearFacturaDetalle(Factura factura)
         {
-            //if (ModelState.IsValid)
-            //{
-
-            if (factura.conceptos != null && factura.conceptos.Count > 0)
+              if (factura.conceptos != null && factura.conceptos.Count > 0)
                 {
                     Detalle detalle = new Detalle();
 

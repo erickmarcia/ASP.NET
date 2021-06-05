@@ -14,7 +14,7 @@
 @using (Html.BeginForm("Create", "factura", FormMethod.Post))
 {
     <div class="row">
-        @*<form>*@
+    
         <div class="form-group">
             <div class="row mb-3">
                 <label for="inputDate" class="col-sm-2 col-form-label">Fecha:</label>
@@ -25,8 +25,7 @@
                 </fieldset>
             </div>
         </div>
-        @*</form>
-            <form>*@
+     
         <div class="form-group">
             <div class="row mb-3">
                 <label for="inputText" class="col-sm-2 col-form-label"># Factura:</label>
@@ -35,8 +34,7 @@
                 </div>
             </div>
         </div>
-        @*</form>
-            <form>*@
+     
         <div class="form-group">
             <div class="row mb-3">
                 <label for="inputName" class="col-sm-2 col-form-label">Cliente:</label>
@@ -45,7 +43,7 @@
                 </div>
             </div>
         </div>
-        @*</form>*@
+   
     </div>
     <hr />
     <div class="row">
@@ -55,8 +53,7 @@
                     <tr>
                         <th>
                             Artículo:
-                            @*<input type="text" class="form-control" placeholder="First name" aria-label="First name">*@
-                            @Html.DropDownList("Productos", null, htmlAttributes: new { id = "CmbCodArticulo", @class = "form-control" })
+                             @Html.DropDownList("Productos", null, htmlAttributes: new { id = "CmbCodArticulo", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.idArticulo, "", new { @class = "text-danger" })
                         </th>
                         <th>
@@ -81,11 +78,7 @@
                         </th>
                     </tr>
                     <tr>
-                        @*<th>
-                                Cantidad: @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { id = "Cantidad", @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.cantidad, "", new { @class = "text-danger" })
-                            </th>*@
-                        <th>
+                          <th>
                             <fieldset disabled>
                                 Precio: @Html.EditorFor(model => model.precio, new { htmlAttributes = new { id = "Precio", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
@@ -98,8 +91,7 @@
                             </fieldset>
                         </th>
                         <th>
-                            @*<input value="Agregar" type="button" onclick="AgregaConcepto(); return false;" />*@
-                            <div class="form-group">
+                              <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="button" value="Agregar" class="btn btn-default" onclick="AgregaConcepto(); return false;" />
                                 </div>
@@ -155,7 +147,8 @@
 
 
     function Refresh() {
-        fetch("https://localhost:44326/api/articulo/" + cboArticulosClass.value, requestOptions)
+        //fetch("https://localhost:44326/api/articulo/" + cboArticulosClass.value, requestOptions)
+        fetch("http://localhost/apidemo/api/articulo/" + cboArticulosClass.value, requestOptions)
             .then(response => response.json())
             .then(function (data) {
 

@@ -1,5 +1,4 @@
 ﻿@model WebApp.Models.Articulo
-@*@model MVCCUDApi.Models.Articulo*@
 
 @{
     ViewBag.Title = "Delete";
@@ -9,11 +8,11 @@
 
 <h3>¿Quieres Eliminar este Artículo?</h3>
 <div>
-    @*<h4>Articulo</h4>*@
+  
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @*@Html.DisplayNameFor(model => model.codigo)*@
+        
             <b>
                 Código:
             </b>
@@ -24,7 +23,7 @@
         </dd>
 
         <dt>
-            @*@Html.DisplayNameFor(model => model.nombre)*@
+          
             <b>
                 Nombre:
             </b>
@@ -35,7 +34,7 @@
         </dd>
 
         <dt>
-            @*@Html.DisplayNameFor(model => model.precio)*@
+         
             <b>
                 Precio:
             </b>
@@ -46,7 +45,7 @@
         </dd>
 
         <dt>
-            @*@Html.DisplayNameFor(model => model.iva)*@
+          
             <b>
                 IVA (13%):
             </b>
@@ -57,7 +56,6 @@
         </dd>
 
         <dt>
-            @*@Html.DisplayNameFor(model => model.aplicaIva)*@
             <b>
                 Aplica IVA:
             </b>
@@ -66,17 +64,7 @@
         <dd>
             @Html.DisplayFor(model => model.aplicaIva)
         </dd>
-        @*<dt>
-            <b>
-                Precio Total:
-            </b>
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Total)
-        </dd>*@
-
-        <dt>
-            @*@Html.DisplayNameFor(model => model.activo)*@
+       
             <b>
                 Activo:
             </b>
